@@ -17,3 +17,6 @@
 //= require jquery.serializeJSON
 //= require_tree .
 //= require_tree ./models
+//= require_tree ./views
+
+

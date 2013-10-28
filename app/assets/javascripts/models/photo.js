@@ -5,6 +5,8 @@
 		this.attributes = attributes;
 	};
 
+	Photo.all = Photo.all || [];
+
 	_.extend(Photo.prototype, {
 		get: function(attr_name) {
 			return this.attributes[attr_name];
@@ -25,7 +27,7 @@
 					success: function(result) {
 						callback(result);
 						_.extend(that, result);
-						Photo.all.push(result);
+						Photo.all.push(that);
 					}
 				});
 			}
@@ -37,12 +39,11 @@
 			url: "/api/users/" + userId + "/photos",
 			type: "GET",
 			success: function(photos) {
-				var photo_data = photos.serializeJSON();
-				callback(photo_data);
+				// var photo_data = photos.serializeJSON();
+				callback(photos);
 			}
 		});
 	}
 
-	Photo.all = [];
 
 })(this);

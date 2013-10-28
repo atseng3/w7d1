@@ -1,0 +1,19 @@
+<div id="content"></div>
+<script>
+(function(root) {
+	var PT = root.PT = (root.PT || {});
+
+	PT.initialize = function() {
+		var CURRENT_USER_ID = <%= current_user.id %>;
+		PT.Photo.fetchByUserId(CURRENT_USER_ID, function(photos) {
+			var photosList = new PT.PhotosListView();
+			var pageContent = photosList.render(photos).$el;
+			// var pageContent = PT.PhotosListView.render().$el;
+			$('div#content').append(pageContent);
+		});
+	}
+})(this);
+
+PT.initialize();
+
+</script>
