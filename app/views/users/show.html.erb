@@ -2,9 +2,33 @@
 
 <p>Hello, dear user!</p>
 
+<p>Create Photo:</p>
+<form id="photo_create">
+	<label for="photo_title">Photo Title:</label>
+	<input type="text" id="photo_title" name="photo[title]">
+
+	<label for="photo_url">Photo URL:</label>
+	<input type="text" name="photo[url]" id="photo_url">
+
+	<p><input type="submit" value="Create Photo"></p>
+</form>
+
 <% @photos.each do |photo| %>
 	<div>
 		<%= photo.title %><br>
 		<img src="<%= photo.url %>">
 	</div>
 <% end %>
+
+<script>
+	$('#photo_create').on('submit', function(event) {
+		event.preventDefault();
+		var photoData = $(this).serializeJSON()["photo"];
+		// var json_photo = photoData.serializeJSON();
+
+		var new_photo = new PT.Photo(photoData);
+		new_photo.create(function() {
+			alert("you created a photo!");
+		});
+	})
+</script>

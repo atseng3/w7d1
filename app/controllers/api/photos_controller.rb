@@ -1,4 +1,4 @@
-class PhotosController < ApplicationController
+class Api::PhotosController < ApplicationController
   def index
     @photos = Photo.all
 
@@ -14,6 +14,8 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(params[:photo])
+    @photo.owner_id = current_user.id
+
     if @photo.save
       render :json => @photo
     else
