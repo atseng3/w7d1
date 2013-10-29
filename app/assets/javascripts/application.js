@@ -18,5 +18,27 @@
 //= require_tree .
 //= require_tree ./models
 //= require_tree ./views
+//= require_tree ../templates
 
 
+
+
+(function(root) {
+	var PT = root.PT = (root.PT || {});
+
+	PT.initialize = function() {
+
+		PT.Photo.fetchByUserId(CURRENT_USER_ID, function(photos) {
+			var photosList = new PT.PhotosListView();
+			var pageContent = photosList.render(photos).$el;
+			var photo_form = new PT.PhotoFormView();
+			$('div#content').append(pageContent).append(photo_form.render().$el);
+		});
+
+		$(document).on('submit', '#photo_create', function(event) {
+			debugger
+			var formData = $(event.currentTarget);
+			PT.PhotoFormView.create(formData);
+		});
+	}
+})(this);
